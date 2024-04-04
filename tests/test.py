@@ -1,9 +1,15 @@
-from pakuri import Pakuri
+import pakudex
 
-example = Pakuri("Pikachu")
+dex = pakudex.Pakudex()
+dex.add_pakuri("Meep")
+dex.add_pakuri("Bear")
+dex.add_pakuri("Tiger")
 
-print(example.get_speed())
-example.evolve()
-print(example.get_speed())
 
-print(example)
+print(dex)
+
+print(dex.evolve_species("Tiger"))
+
+print("\n" + str(dex))
+
+print(dex.get_stats("Tiger"))

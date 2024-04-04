@@ -1,4 +1,14 @@
 class Pakuri:
+    """A class used to represent a Pakuri
+
+    Stats
+    -----
+    - attack
+    - defense
+    - speed
+
+    """
+
     def __init__(self, species: str):
         self.species = species
         self.attack = (len(species) * 7) + 9
@@ -26,4 +36,4 @@ class Pakuri:
         self.speed *= 3
 
     def __str__(self) -> str:
-        return f"{self.species}:\tattack: {self.attack}\tdefense: {self.defense}\tspeed: {self.speed}"
+        return f"{self.species}: attack: {self.attack} defense: {self.defense} speed: {self.speed}"
