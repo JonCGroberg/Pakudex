@@ -1,6 +1,6 @@
 from pakudex import Pakudex
 
-main_menu = ("Padudex Main Menu"
+main_menu = ("Pakudex Main Menu"
              "\n-----------------"
              "\n1. List Pakuri"
              "\n2. Show Pakuri"
@@ -14,9 +14,14 @@ main_menu = ("Padudex Main Menu"
 def handle_user_choice(choice: str, pakudex: Pakudex) -> None:
     if choice == "1":
         print("Pakuri In Pakudex:" if pakudex.get_size() > 0 else "No Pakuri in Pakudex yet!\n")
+        arr = pakudex.get_species_array()
 
-        for index, species in enumerate(pakudex.get_species_array()):
-            print(f"{index + 1}. {species}")
+        if arr is not None:
+            for index, species in enumerate(arr):
+                print(f"{index + 1}. {species}")
+
+        print("")
+
     elif choice == "2":
         species = input("Enter the name of the species to display: ")
         stats = pakudex.get_stats(species)
@@ -27,21 +32,29 @@ def handle_user_choice(choice: str, pakudex: Pakudex) -> None:
                   f"Defense: {stats[1]}\n"
                   f"Speed: {stats[2]}")
         else:
-            print("Error: no such Pakuri!\n")
+            print("Error: No such Pakuri!\n")
 
     elif choice == "3":
-        species = input("Enter name of the species to add: ")
-        print(f"Pakuri species {species} successfully added!" if pakudex.add_pakuri(species) else "Error: ")
+        if pakudex.get_size() >= pakudex.get_capacity():
+            print("Error: Pakudex is full!")
+        else:
+            species = input("Enter the name of the species to add: ")
+            print(f"Pakuri species {species} successfully added!" if pakudex.add_pakuri(species) else "Error: Pakudex "
+                                                                                                      "already contains"
+                                                                                                      "this species!")
 
     elif choice == "4":
-        species = input("Enter name of the species to evolve: ")
-        print(f"{species} has Evolved!" if pakudex.evolve_species(species) else "Error: no such Pakuri!")
+        species = input("Enter the name of the species to evolve: ")
+        print(f"{species} has evolved!" if pakudex.evolve_species(species) else "Error: No such Pakuri!\n")
+
     elif choice == "5":
         pakudex.sort_pakuri()
         print("Pakuri\thave\tbeen\tsorted!")
+
     elif choice == "6":
         print("Thanks for using Pakudex! Bye!")
         exit()
+
     else:
         print("Unrecognized menu selection!")
 
@@ -49,16 +62,16 @@ def handle_user_choice(choice: str, pakudex: Pakudex) -> None:
 def prompt_capacity() -> int:
     capacity = 0
     while capacity == 0:
-        user_input = input("Enter max capacity of the Pakudex ")
+        user_input = input("Enter max capacity of the Pakudex: ")
 
         try:
             if int(user_input) > 0:
                 capacity = user_input
-                print(f"The pakudex can hold {capacity} species of Pakuri.\n")
+                print(f"The Pakudex can hold {capacity} species of Pakuri.\n")
             else:
-                print("Please enter a valid size")
+                print("Please enter a valid size.")
         except ValueError:
-            print("Please enter a valid size")
+            print("Please enter a valid size.")
             continue
 
     return capacity
@@ -73,7 +86,7 @@ def main() -> None:
     while True:
         print(main_menu)
         choice = input("\nWhat would you like to do? ")
-        handle_user_choice(choice, pakudex)
+        handle_user_choice(choice.strip(), pakudex)
 
 
 if __name__ == '__main__':

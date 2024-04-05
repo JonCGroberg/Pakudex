@@ -37,3 +37,6 @@ class Pakuri:
 
     def __str__(self) -> str:
         return f"{self.species}: attack: {self.attack} defense: {self.defense} speed: {self.speed}"
+
+    def __lt__(self, other) -> bool:
+        return self.species < other.species

@@ -3,17 +3,20 @@ from pakuri import Pakuri
 
 class Pakudex:
     def __init__(self, capacity: int = 20) -> None:
-        self.capacity = capacity
+        self.capacity: int = capacity
         self.pakuri_array: list[Pakuri] = []
 
     def get_size(self) -> int:
-        return len(self.pakuri_array)
+        return int(len(self.pakuri_array))
 
     def get_capacity(self) -> int:
-        return self.capacity
+        return int(self.capacity)
 
-    def get_species_array(self) -> list[str]:
-        return [pakuri.species for pakuri in self.pakuri_array]
+    def get_species_array(self) -> list[str] | None:
+        if self.get_size() > 0:
+            return [pakuri.species for pakuri in self.pakuri_array]
+        else:
+            return None
 
     # get the stats for a certain species or return none if DNE
     def get_stats(self, species) -> list[int] | None:
@@ -26,8 +29,7 @@ class Pakudex:
             return None
 
     def sort_pakuri(self) -> None:
-        # sort(self.species_array)
-        pass
+        self.pakuri_array.sort()
 
     def add_pakuri(self, species: str) -> bool:
         if self.__private_index_of_species(species) is not None:
