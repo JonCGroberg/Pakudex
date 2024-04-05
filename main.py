@@ -13,11 +13,21 @@ main_menu = ("Padudex Main Menu"
 
 def handle_user_choice(choice: str, pakudex: Pakudex) -> None:
     if choice == "1":
-        print("Pakuri In Pakudex" if pakudex.get_size() > 0 else "No Pakuri in Pakudex yet!")
+        print("Pakuri In Pakudex:" if pakudex.get_size() > 0 else "No Pakuri in Pakudex yet!\n")
 
         for index, species in enumerate(pakudex.get_species_array()):
             print(f"{index + 1}. {species}")
     elif choice == "2":
+        species = input("Enter the name of the species to display: ")
+        stats = pakudex.get_stats(species)
+
+        if stats is not None:
+            print(f"\nSpecies: {species}\n"
+                  f"Attack: {stats[0]}\n"
+                  f"Defense: {stats[1]}\n"
+                  f"Speed: {stats[2]}")
+        else:
+            print("Error: no such Pakuri!\n")
 
     elif choice == "3":
         pass

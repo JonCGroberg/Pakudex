@@ -16,7 +16,7 @@ class Pakudex:
         return [pakuri.species for pakuri in self.pakuri_array]
 
     # get the stats for a certain species or return none if DNE
-    def get_stats(self, species) -> list[int] or None:
+    def get_stats(self, species) -> list[int] | None:
         index = self.__private_index_of_species(species)
 
         if index is not None:
