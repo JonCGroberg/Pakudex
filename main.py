@@ -1,3 +1,5 @@
+from pakudex import Pakudex
+
 main_menu = ("Padudex Main Menu"
              "\n-----------------"
              "\n1. List Pakuri"
@@ -9,11 +11,14 @@ main_menu = ("Padudex Main Menu"
              "")
 
 
-def handle_user_choice(choice: str) -> None:
+def handle_user_choice(choice: str, pakudex: Pakudex) -> None:
     if choice == "1":
-        pass
+        print("Pakuri In Pakudex" if pakudex.get_size() > 0 else "No Pakuri in Pakudex yet!")
+
+        for index, species in enumerate(pakudex.get_species_array()):
+            print(f"{index + 1}. {species}")
     elif choice == "2":
-        pass
+
     elif choice == "3":
         pass
     elif choice == "4":
@@ -47,12 +52,13 @@ def prompt_capacity() -> int:
 def main() -> None:
     print("Welcome to Pakudex: Tracker Extraordinaire! ")
     pakudex_capacity = prompt_capacity()
+    pakudex = Pakudex(pakudex_capacity)
 
     # run the menu loop
     while True:
         print(main_menu)
         choice = input("\nWhat would you like to do? ")
-        handle_user_choice(choice)
+        handle_user_choice(choice, pakudex)
 
 
 if __name__ == '__main__':

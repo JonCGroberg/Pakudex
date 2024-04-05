@@ -12,13 +12,16 @@ class Pakudex:
     def get_capacity(self) -> int:
         return self.capacity
 
-    def get_species_array(self) -> str:
-        return " ".join([pakuri.species for pakuri in self.pakuri_array])
+    def get_species_array(self) -> list[str]:
+        return [pakuri.species for pakuri in self.pakuri_array]
 
     # get the stats for a certain species or return none if DNE
     def get_stats(self, species) -> list[int] or None:
-        if species in self.pakuri_array:
-            return [species.get_attack, species.get_defense, species.get_speed]
+        index = self.__private_index_of_species(species)
+
+        if index is not None:
+            pakuri = self.pakuri_array[index]
+            return [pakuri.get_attack(), pakuri.get_defense(), pakuri.get_speed()]
         else:
             return None
 
@@ -27,23 +30,24 @@ class Pakudex:
         pass
 
     def add_pakuri(self, species: str) -> bool:
-        if self.__private_index_of_species(species):
+        if self.__private_index_of_species(species) is not None:
             return False
         else:
             self.pakuri_array.append(Pakuri(species))
             return True
 
     def evolve_species(self, species):
-        if self.__private_index_of_species(species):
-            species.evolve()
+        index = self.__private_index_of_species(species)
+        if index is not None:
+            self.pakuri_array[index].evolve()
             return True
         else:
             return False
 
     # returns the s
     def __private_index_of_species(self, species: str) -> int | None:
-        # check each pakuris name and return true if we find it, else false
-        for pakuri, index in self.pakuri_array:
+        # check each pakuris name and return index if we find it, else None
+        for index, pakuri in enumerate(self.pakuri_array):
             if species == pakuri.get_species():
                 return index
         return None
