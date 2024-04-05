@@ -30,12 +30,17 @@ def handle_user_choice(choice: str, pakudex: Pakudex) -> None:
             print("Error: no such Pakuri!\n")
 
     elif choice == "3":
-        pass
+        species = input("Enter name of the species to add: ")
+        print(f"Pakuri species {species} successfully added!" if pakudex.add_pakuri(species) else "Error: ")
+
     elif choice == "4":
-        pass
+        species = input("Enter name of the species to evolve: ")
+        print(f"{species} has Evolved!" if pakudex.evolve_species(species) else "Error: no such Pakuri!")
     elif choice == "5":
-        pass
+        pakudex.sort_pakuri()
+        print("Pakuri\thave\tbeen\tsorted!")
     elif choice == "6":
+        print("Thanks for using Pakudex! Bye!")
         exit()
     else:
         print("Unrecognized menu selection!")
