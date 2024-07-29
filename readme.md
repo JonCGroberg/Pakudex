@@ -1,7 +1,5 @@
 # Pakudex Python
 
-Pakudex Python is a project designed to help students practice object-oriented programming concepts, such as classes and objects, by building a cataloguing system for creatures called "Pakuri."
-
 Note: This project concept is a work of satire and does not promote the mistreatment or exploitation of creatures.
 
 Overview
